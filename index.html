@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JS Interview Prep</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=JetBrains+Mono:wght@400;500&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#0b0e17;--surface:#111520;--card:#161b2e;--border:#1e2740;
+  --accent:#6ee7ff;--accent2:#ff6b9d;--accent3:#a78bfa;
+  --text:#e2e8f0;--muted:#64748b;--code-bg:#0d1117;
+  --tag-basic-bg:#134e4a;--tag-basic:#5eead4;
+  --tag-int-bg:#1e3a5f;--tag-int:#60a5fa;
+  --tag-adv-bg:#3b1f5e;--tag-adv:#c084fc;
+  --success:#22c55e;--warning:#f59e0b;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden}
+
+/* ── SIDEBAR ── */
+.sidebar{position:fixed;left:0;top:0;bottom:0;width:272px;background:var(--surface);border-right:1px solid var(--border);overflow-y:auto;z-index:100;display:flex;flex-direction:column;transition:transform .3s}
+.sidebar::-webkit-scrollbar{width:3px}.sidebar::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px}
+.logo{padding:22px 18px 18px;border-bottom:1px solid var(--border);flex-shrink:0}
+.logo-title{font-family:'Syne',sans-serif;font-weight:800;font-size:1.2rem;background:linear-gradient(135deg,var(--accent),var(--accent3));-webkit-background-clip:text;-webkit-text-fill-color:transparent;line-height:1.2}
+.logo-sub{font-size:.7rem;color:var(--muted);margin-top:3px;letter-spacing:.06em;text-transform:uppercase}
+.prog-wrap{padding:14px 18px;border-bottom:1px solid var(--border);flex-shrink:0}
+.prog-label{display:flex;justify-content:space-between;font-size:.7rem;color:var(--muted);margin-bottom:6px}
+.prog-bar{height:3px;background:var(--border);border-radius:2px;overflow:hidden}
+.prog-fill{height:100%;background:linear-gradient(90deg,var(--accent),var(--accent3));transition:width .4s;width:0%}
+.search-wrap{padding:10px 18px;border-bottom:1px solid var(--border);flex-shrink:0;position:relative}
+.search-icon{position:absolute;left:30px;top:50%;transform:translateY(-50%);color:var(--muted);font-size:.75rem;pointer-events:none}
+.search-input{width:100%;background:var(--card);border:1px solid var(--border);border-radius:7px;padding:7px 10px 7px 28px;color:var(--text);font-size:.8rem;font-family:'Inter',sans-serif;outline:none;transition:border-color .2s}
+.search-input:focus{border-color:var(--accent)}
+.nav-hdr{font-family:'Syne',sans-serif;font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);padding:14px 18px 6px}
+.nav-item{display:flex;align-items:center;gap:9px;padding:7px 18px;cursor:pointer;font-size:.8rem;color:var(--muted);border-left:2px solid transparent;transition:all .15s;user-select:none}
+.nav-item:hover{color:var(--text);background:rgba(110,231,255,.04)}
+.nav-item.active{color:var(--accent);border-left-color:var(--accent);background:rgba(110,231,255,.06)}
+.nav-count{margin-left:auto;font-size:.67rem;background:var(--border);padding:1px 6px;border-radius:10px;color:var(--muted)}
+.nav-item.active .nav-count{background:rgba(110,231,255,.15);color:var(--accent)}
+.nav-dot{width:5px;height:5px;border-radius:50%;background:var(--border);flex-shrink:0}
+.nav-item.active .nav-dot{background:var(--accent)}
+
+/* ── MAIN ── */
+.main{margin-left:272px;min-height:100vh;display:flex;flex-direction:column}
+.topbar{position:sticky;top:0;z-index:50;background:rgba(11,14,23,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:11px 28px;display:flex;align-items:center;gap:14px}
+.topbar-title{font-family:'Syne',sans-serif;font-size:1.05rem;font-weight:700;flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pills{display:flex;gap:5px;flex-shrink:0}
+.pill{padding:4px 11px;border-radius:20px;font-size:.72rem;font-weight:500;cursor:pointer;border:1px solid var(--border);background:transparent;color:var(--muted);transition:all .15s;font-family:'Inter',sans-serif}
+.pill:hover{border-color:var(--accent);color:var(--accent)}
+.pill.active{background:var(--accent);color:#000;border-color:var(--accent);font-weight:600}
+.pill.basic.active{background:var(--tag-basic);color:#000;border-color:var(--tag-basic)}
+.pill.intermediate.active{background:var(--tag-int);color:#000;border-color:var(--tag-int)}
+.pill.advanced.active{background:var(--tag-adv);color:#000;border-color:var(--tag-adv)}
+.hamburger{display:none;background:none;border:none;color:var(--text);font-size:1.2rem;cursor:pointer;padding:4px}
+.content{padding:28px;flex:1}
+
+/* ── INTRO ── */
+.intro{margin-bottom:24px;padding:24px 28px;background:var(--card);border:1px solid var(--border);border-radius:14px;position:relative;overflow:hidden}
+.intro::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--accent),var(--accent3),var(--accent2))}
+.intro h1{font-family:'Syne',sans-serif;font-size:1.5rem;font-weight:800;margin-bottom:6px}
+.intro p{color:var(--muted);font-size:.87rem;line-height:1.6;max-width:560px}
+.stats-row{display:flex;gap:16px;margin-top:16px;flex-wrap:wrap}
+.stat{background:var(--surface);border:1px solid var(--border);border-radius:7px;padding:7px 14px;font-size:.78rem;display:flex;align-items:center;gap:7px}
+.stat .n{font-family:'Syne',sans-serif;font-weight:700;font-size:1.05rem;color:var(--accent)}
+.stat .l{color:var(--muted)}
+
+/* ── LOAD STATUS ── */
+.load-banner{display:flex;align-items:center;gap:12px;padding:16px 20px;background:rgba(110,231,255,.05);border:1px solid rgba(110,231,255,.15);border-radius:10px;margin-bottom:20px;font-size:.85rem;color:var(--accent)}
+.load-banner .spinner{width:18px;height:18px;border:2px solid rgba(110,231,255,.2);border-top-color:var(--accent);border-radius:50%;animation:spin .7s linear infinite;flex-shrink:0}
+@keyframes spin{to{transform:rotate(360deg)}}
+.load-error{background:rgba(255,107,157,.05);border-color:rgba(255,107,157,.2);color:var(--accent2)}
+
+/* ── Q CARDS ── */
+.q-list{display:flex;flex-direction:column;gap:2px}
+.q-card{background:var(--card);border:1px solid var(--border);border-radius:9px;overflow:hidden;transition:border-color .2s,box-shadow .2s}
+.q-card:hover{border-color:rgba(110,231,255,.25);box-shadow:0 0 16px rgba(110,231,255,.04)}
+.q-card.opened{border-color:rgba(110,231,255,.2)}
+.q-hdr{display:flex;align-items:flex-start;gap:12px;padding:14px 18px;cursor:pointer;user-select:none}
+.q-num{font-family:'JetBrains Mono',monospace;font-size:.7rem;color:var(--muted);min-width:28px;padding-top:2px;flex-shrink:0}
+.q-title{flex:1;font-size:.9rem;font-weight:500;line-height:1.5}
+.q-meta{display:flex;align-items:center;gap:7px;flex-shrink:0;padding-top:2px}
+.badge{font-size:.63rem;font-weight:600;padding:2px 7px;border-radius:9px;letter-spacing:.04em;text-transform:uppercase}
+.badge.basic{background:var(--tag-basic-bg);color:var(--tag-basic)}
+.badge.intermediate{background:var(--tag-int-bg);color:var(--tag-int)}
+.badge.advanced{background:var(--tag-adv-bg);color:var(--tag-adv)}
+.bm-btn{background:none;border:none;color:var(--muted);cursor:pointer;font-size:.88rem;padding:1px 3px;transition:color .15s;line-height:1}
+.bm-btn:hover,.bm-btn.on{color:var(--warning)}
+.chevron{color:var(--muted);font-size:.72rem;transition:transform .22s;flex-shrink:0}
+.q-card.opened .chevron{transform:rotate(180deg)}
+.q-body{display:none;padding:0 18px 18px 58px;border-top:1px solid var(--border);animation:fadeIn .18s ease}
+.q-body.show{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(-3px)}to{opacity:1;transform:translateY(0)}}
+
+/* ── ANSWER CONTENT ── */
+.ans{font-size:.86rem;line-height:1.78;color:#cbd5e1;margin-top:14px}
+.ans p{margin-bottom:8px}
+.ans ul,.ans ol{padding-left:18px;margin-bottom:8px}
+.ans li{margin-bottom:3px}
+.ans strong{color:var(--text)}
+.ans em{color:var(--accent);font-style:normal}
+.ans h4{color:var(--text);font-family:'Syne',sans-serif;font-size:.82rem;margin:10px 0 4px;font-weight:600}
+.ans h5{color:var(--muted);font-size:.78rem;margin:8px 0 3px;font-weight:600}
+.ans table{width:100%;border-collapse:collapse;margin:10px 0;font-size:.81rem}
+.ans th{background:var(--surface);color:var(--accent);padding:7px 11px;text-align:left;font-weight:600;border:1px solid var(--border)}
+.ans td{padding:7px 11px;border:1px solid var(--border);vertical-align:top}
+.ans tr:nth-child(even) td{background:rgba(255,255,255,.02)}
+.code-block{background:var(--code-bg);border:1px solid var(--border);border-radius:7px;margin:10px 0;overflow:hidden}
+.code-hdr{display:flex;align-items:center;justify-content:space-between;padding:7px 12px;border-bottom:1px solid var(--border);background:rgba(255,255,255,.02)}
+.code-lang{font-family:'JetBrains Mono',monospace;font-size:.68rem;color:var(--muted)}
+.copy-btn{background:none;border:1px solid var(--border);color:var(--muted);font-size:.68rem;padding:2px 9px;border-radius:4px;cursor:pointer;font-family:'Inter',sans-serif;transition:all .15s}
+.copy-btn:hover{border-color:var(--accent);color:var(--accent)}
+.copy-btn.done{border-color:var(--success);color:var(--success)}
+.code-block pre{padding:12px 14px;overflow-x:auto;font-family:'JetBrains Mono',monospace;font-size:.79rem;line-height:1.65;color:#c9d1d9}
+.code-block pre::-webkit-scrollbar{height:3px}.code-block pre::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px}
+.icode{font-family:'JetBrains Mono',monospace;font-size:.8em;background:rgba(110,231,255,.08);color:var(--accent);padding:1px 5px;border-radius:3px}
+.note{background:rgba(110,231,255,.05);border-left:3px solid var(--accent);border-radius:0 5px 5px 0;padding:9px 12px;margin:10px 0;font-size:.81rem;color:#94a3b8}
+.note strong{color:var(--accent)}
+.ans-img{max-width:100%;border-radius:8px;border:1px solid var(--border);margin:12px 0;display:block}
+
+/* ── EMPTY ── */
+.empty{text-align:center;padding:70px 20px;color:var(--muted)}
+.empty .icon{font-size:2.2rem;margin-bottom:10px}
+.empty p{font-size:.88rem}
+
+/* ── MOBILE ── */
+.sidebar-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:99}
+@media(max-width:768px){
+  .sidebar{transform:translateX(-100%)}.sidebar.open{transform:translateX(0)}
+  .main{margin-left:0}.hamburger{display:block}.sidebar-overlay.active{display:block}
+  .content{padding:14px}.q-body{padding-left:18px}.topbar{padding:9px 14px}
+  .pills{overflow-x:auto}
+}
+::-webkit-scrollbar{width:5px}::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
+</style>
+</head>
+<body>
+
+<div class="sidebar-overlay" id="overlay" onclick="closeSidebar()"></div>
+
+<nav class="sidebar" id="sidebar">
+  <div class="logo">
+    <div class="logo-title">JS Interview<br>Prep</div>
+    <div class="logo-sub">478 Questions · From README</div>
+  </div>
+  <div class="prog-wrap">
+    <div class="prog-label"><span>Progress</span><span id="prog-txt">0 / 478</span></div>
+    <div class="prog-bar"><div class="prog-fill" id="prog-fill"></div></div>
+  </div>
+  <div class="search-wrap">
+    <span class="search-icon">🔍</span>
+    <input class="search-input" id="search-in" type="text" placeholder="Search questions...">
+  </div>
+  <div id="nav-body"></div>
+</nav>
+
+<div class="main">
+  <div class="topbar">
+    <button class="hamburger" onclick="toggleSidebar()">☰</button>
+    <div class="topbar-title" id="top-title">JavaScript Interview Prep</div>
+    <div class="pills">
+      <button class="pill active" onclick="setLevel('all',this)">All</button>
+      <button class="pill basic" onclick="setLevel('basic',this)">Basic</button>
+      <button class="pill intermediate" onclick="setLevel('intermediate',this)">Intermediate</button>
+      <button class="pill advanced" onclick="setLevel('advanced',this)">Advanced</button>
+    </div>
+  </div>
+  <div class="content" id="content"></div>
+</div>
+
+<script>
+// ── CONFIG ──────────────────────────────────────────────────────────────────
+const CATEGORIES = [
+  { id:'fundamentals', icon:'🧱', title:'JavaScript Fundamentals'          },
+  { id:'functions',   icon:'🔧', title:'Functions & Scope'                 },
+  { id:'objects',     icon:'🏗️', title:'Objects & Prototypes'             },
+  { id:'arrays',      icon:'📦', title:'Arrays, Strings & Collections'     },
+  { id:'async',       icon:'⚡', title:'Asynchronous JavaScript'           },
+  { id:'dom',         icon:'🌐', title:'DOM, Events & Browser'             },
+  { id:'es6plus',     icon:'🚀', title:'ES6+ & Modern JavaScript'          },
+  { id:'patterns',    icon:'⚙️', title:'Patterns, Internals & Performance' },
+];
+
+const DESCRIPTIONS = {
+  fundamentals:'Core JavaScript concepts every developer must know — types, scope, closures, storage, and browser APIs.',
+  functions:'Deep dive into functions: currying, closures, higher-order patterns, generators, and async callbacks.',
+  objects:'Prototypes, classes, Proxy, Reflect, Object internals, and inheritance patterns.',
+  arrays:'Array/string methods, Set, Map, WeakMap, WeakSet, iterators, and collection operations.',
+  async:'Event loop, Promises, async/await, fetch, WebSockets, and all async patterns in depth.',
+  dom:'DOM manipulation, events, observers, browser APIs, security, and rendering performance.',
+  es6plus:'Every modern JavaScript feature from ES6 through ES2024 with practical examples.',
+  patterns:'Design patterns, V8 internals, performance, TypeScript, testing, and tooling.'
+};
+
+// ── STATE ────────────────────────────────────────────────────────────────────
+let allData      = null;   // full parsed JSON from questions.json
+let activeCat    = 'fundamentals';
+let activeLevel  = 'all';
+let searchQ      = '';
+let bookmarks    = new Set(JSON.parse(localStorage.getItem('js-prep-bm') || '[]'));
+let viewed       = new Set(JSON.parse(localStorage.getItem('js-prep-viewed') || '[]'));
+let opened       = new Set();
+let isLoading    = true;
+let loadError    = false;
+
+// ── PERSISTENCE (bookmarks + viewed only — no question caching) ──────────────
+function saveMeta() {
+  localStorage.setItem('js-prep-bm',     JSON.stringify([...bookmarks]));
+  localStorage.setItem('js-prep-viewed',  JSON.stringify([...viewed]));
+}
+
+// ── DATA LOAD ────────────────────────────────────────────────────────────────
+async function loadData() {
+  try {
+    const res = await fetch('./questions.json');
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    allData = await res.json();
+    isLoading = false;
+    buildNav();
+    renderContent();
+    updateProgress();
+  } catch (err) {
+    console.error('Failed to load questions.json:', err);
+    isLoading = false;
+    loadError = true;
+    renderContent();
+  }
+}
+
+function getCatQuestions(catId) {
+  if (!allData) return [];
+  return allData.categories[catId]?.questions || [];
+}
+
+// ── RENDER ───────────────────────────────────────────────────────────────────
+function renderContent() {
+  const cat = CATEGORIES.find(c => c.id === activeCat);
+  if (!cat) return;
+
+  const catQs = getCatQuestions(activeCat);
+  const totalViewed = viewed.size;
+  const total = allData ? allData.meta.total : 478;
+
+  let html = `<div class="intro">
+    <h1>${cat.icon} ${cat.title}</h1>
+    <p>${DESCRIPTIONS[cat.id] || ''}</p>
+    <div class="stats-row">
+      <div class="stat"><span class="n">${catQs.length || '…'}</span><span class="l">questions</span></div>
+      <div class="stat"><span class="n">${totalViewed}</span><span class="l">studied</span></div>
+      <div class="stat"><span class="n">${bookmarks.size}</span><span class="l">bookmarked</span></div>
+      <div class="stat"><span class="n">${total}</span><span class="l">total</span></div>
+    </div>
+  </div>`;
+
+  if (isLoading) {
+    html += `<div class="load-banner"><div class="spinner"></div>Loading questions from local data…</div>`;
+  } else if (loadError) {
+    html += `<div class="load-banner load-error">⚠ Could not load <strong>questions.json</strong>. Make sure it's in the same folder as this HTML file.</div>`;
+  } else {
+    const qs = catQs.filter(q => {
+      const lvlOk = activeLevel === 'all' || q.level === activeLevel;
+      const searchOk = !searchQ || q.q.toLowerCase().includes(searchQ) || (q.a || '').toLowerCase().includes(searchQ);
+      return lvlOk && searchOk;
+    });
+
+    if (qs.length === 0) {
+      html += `<div class="empty"><div class="icon">🔍</div><p>No questions match your filter.</p></div>`;
+    } else {
+      html += `<div class="q-list">`;
+      qs.forEach(q => {
+        const isOpen = opened.has(q.n);
+        const isBm   = bookmarks.has(q.n);
+        html += `<div class="q-card${isOpen ? ' opened' : ''}" id="qc-${q.n}">
+          <div class="q-hdr" onclick="toggleQ(${q.n})">
+            <span class="q-num">${String(q.n).padStart(3, '0')}</span>
+            <span class="q-title">${esc(q.q)}</span>
+            <div class="q-meta">
+              <span class="badge ${q.level || 'basic'}">${q.level || 'basic'}</span>
+              <button class="bm-btn${isBm ? ' on' : ''}" onclick="toggleBm(event,${q.n})">★</button>
+              <span class="chevron">▼</span>
+            </div>
+          </div>
+          <div class="q-body${isOpen ? ' show' : ''}" id="qb-${q.n}">
+            <div class="ans">${renderAnswer(q.a)}</div>
+          </div>
+        </div>`;
+      });
+      html += `</div>`;
+    }
+  }
+
+  document.getElementById('content').innerHTML = html;
+  updateProgress();
+}
+
+function renderAnswer(raw) {
+  if (!raw) return '';
+  let html = raw;
+  // Convert <pre><code ...>...</code></pre> → styled code blocks (class attr optional)
+  html = html.replace(/<pre><code[^>]*>([\s\S]*?)<\/code><\/pre>/g, (_, code) => {
+    const id = 'cb-' + Math.random().toString(36).substr(2, 8);
+    return `<div class="code-block"><div class="code-hdr"><span class="code-lang">javascript</span><button class="copy-btn" onclick="cpCode('${id}')">Copy</button></div><pre id="${id}">${code.trim()}</pre></div>`;
+  });
+  // Inline <code> → styled span (handles any attributes too)
+  html = html.replace(/<code[^>]*>([\s\S]*?)<\/code>/g, (_, c) => `<span class="icode">${c}</span>`);
+  // <img> tags are already safe from the JSON — just ensure the class is set
+  html = html.replace(/<img([^>]*?)>/g, (_, attrs) => {
+    if (!attrs.includes('class=')) attrs += ' class="ans-img"';
+    return `<img${attrs}>`;
+  });
+  requestAnimationFrame(() => {
+    document.querySelectorAll('.code-block pre').forEach(el => {
+      hljs.highlightElement(el);
+    });
+  });
+  return html;
+}
+
+function esc(s = '') {
+  return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+}
+
+// ── INTERACTIONS ─────────────────────────────────────────────────────────────
+function toggleQ(n) {
+  if (opened.has(n)) { opened.delete(n); }
+  else { opened.add(n); viewed.add(n); saveMeta(); }
+  const card = document.getElementById('qc-' + n);
+  const body = document.getElementById('qb-' + n);
+  if (card) card.classList.toggle('opened', opened.has(n));
+  if (body) body.classList.toggle('show', opened.has(n));
+  updateProgress();
+}
+
+function toggleBm(e, n) {
+  e.stopPropagation();
+  if (bookmarks.has(n)) bookmarks.delete(n);
+  else bookmarks.add(n);
+  saveMeta();
+  e.target.classList.toggle('on', bookmarks.has(n));
+  document.querySelector('.stat:nth-child(3) .n').textContent = bookmarks.size;
+}
+
+function cpCode(id) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  navigator.clipboard.writeText(el.textContent).then(() => {
+    const btn = el.closest('.code-block').querySelector('.copy-btn');
+    if (btn) { btn.textContent = 'Copied!'; btn.classList.add('done'); setTimeout(() => { btn.textContent = 'Copy'; btn.classList.remove('done'); }, 2000); }
+  });
+}
+
+window.toggleQ = toggleQ; window.toggleBm = toggleBm; window.cpCode = cpCode;
+
+// ── PROGRESS ─────────────────────────────────────────────────────────────────
+function updateProgress() {
+  const total = allData ? allData.meta.total : 478;
+  const pct = Math.round((viewed.size / total) * 100);
+  document.getElementById('prog-fill').style.width = pct + '%';
+  document.getElementById('prog-txt').textContent = `${viewed.size} / ${total}`;
+}
+
+// ── NAV ──────────────────────────────────────────────────────────────────────
+function buildNav() {
+  let html = '<div class="nav-hdr">Topics</div>';
+  CATEGORIES.forEach(cat => {
+    const count = getCatQuestions(cat.id).length;
+    const active = cat.id === activeCat;
+    html += `<div class="nav-item${active ? ' active' : ''}" onclick="selectCat('${cat.id}')">
+      <span>${cat.icon}</span>
+      <span style="flex:1;line-height:1.3">${cat.title}<br><span style="font-size:.67rem;opacity:.6">${count} questions</span></span>
+    </div>`;
+  });
+  html += '<div class="nav-hdr" style="margin-top:8px">Quick</div>';
+  html += `<div class="nav-item" onclick="showBookmarks()">⭐ Bookmarked<span class="nav-count">${bookmarks.size}</span></div>`;
+  html += `<div class="nav-item" onclick="resetProgress()">🔄 Reset Progress</div>`;
+  document.getElementById('nav-body').innerHTML = html;
+}
+
+function selectCat(id) {
+  activeCat = id;
+  const cat = CATEGORIES.find(c => c.id === id);
+  document.getElementById('top-title').textContent = cat.title;
+  buildNav();
+  renderContent();
+  closeSidebar();
+}
+
+window.selectCat = selectCat;
+
+function setLevel(lv, btn) {
+  activeLevel = lv;
+  document.querySelectorAll('.pill').forEach(p => p.classList.remove('active'));
+  btn.classList.add('active');
+  renderContent();
+}
+window.setLevel = setLevel;
+
+function showBookmarks() {
+  if (!allData) return;
+  const bqs = Object.values(allData.categories).flatMap(c => c.questions).filter(q => bookmarks.has(q.n));
+  document.getElementById('top-title').textContent = 'Bookmarked';
+
+  let html = `<div class="intro"><h1>⭐ Bookmarked Questions</h1><p>Your saved questions for quick review.</p>
+    <div class="stats-row"><div class="stat"><span class="n">${bqs.length}</span><span class="l">bookmarked</span></div></div></div>`;
+
+  if (!bqs.length) {
+    html += `<div class="empty"><div class="icon">⭐</div><p>No bookmarks yet. Click ★ on any question.</p></div>`;
+  } else {
+    html += '<div class="q-list">';
+    bqs.forEach(q => {
+      const isOpen = opened.has(q.n);
+      html += `<div class="q-card${isOpen ? ' opened' : ''}" id="qc-${q.n}">
+        <div class="q-hdr" onclick="toggleQ(${q.n})">
+          <span class="q-num">${String(q.n).padStart(3, '0')}</span>
+          <span class="q-title">${esc(q.q)}</span>
+          <div class="q-meta">
+            <span class="badge ${q.level || 'basic'}">${q.level || 'basic'}</span>
+            <button class="bm-btn on" onclick="toggleBm(event,${q.n})">★</button>
+            <span class="chevron">▼</span>
+          </div>
+        </div>
+        <div class="q-body${isOpen ? ' show' : ''}" id="qb-${q.n}">
+          <div class="ans">${renderAnswer(q.a)}</div>
+        </div>
+      </div>`;
+    });
+    html += '</div>';
+  }
+  document.getElementById('content').innerHTML = html;
+  closeSidebar();
+}
+window.showBookmarks = showBookmarks;
+
+function resetProgress() {
+  if (!confirm('Reset all viewed progress? (Bookmarks are kept)')) return;
+  viewed.clear();
+  saveMeta();
+  updateProgress();
+  renderContent();
+}
+window.resetProgress = resetProgress;
+
+// ── SEARCH ───────────────────────────────────────────────────────────────────
+document.getElementById('search-in').addEventListener('input', e => {
+  searchQ = e.target.value.toLowerCase().trim();
+  renderContent();
+});
+
+// ── SIDEBAR ──────────────────────────────────────────────────────────────────
+function toggleSidebar() {
+  document.getElementById('sidebar').classList.toggle('open');
+  document.getElementById('overlay').classList.toggle('active');
+}
+function closeSidebar() {
+  document.getElementById('sidebar').classList.remove('open');
+  document.getElementById('overlay').classList.remove('active');
+}
+window.toggleSidebar = toggleSidebar;
+window.closeSidebar = closeSidebar;
+
+// ── INIT ─────────────────────────────────────────────────────────────────────
+buildNav();
+updateProgress();
+loadData();
+</script>
+</body>
+</html>
