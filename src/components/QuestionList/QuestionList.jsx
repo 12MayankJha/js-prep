@@ -51,11 +51,6 @@ export default function QuestionList({ onMenuClick }) {
         <button className="qlist__hamburger" onClick={onMenuClick}>
           ☰
         </button>
-        <h2 className="qlist__title">
-          {activeCategory === "bookmarks"
-            ? "⭐ Bookmarked"
-            : catCfg?.title || ""}
-        </h2>
         <div className="qlist__pills">
           {["all", "basic", "intermediate", "advanced"].map((level) => (
             <LevelPill key={level} level={level} activeLevel={activeLevel} />

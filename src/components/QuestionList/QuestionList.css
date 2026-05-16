@@ -277,6 +277,8 @@
 @media (max-width: 768px) {
   .qlist__hamburger {
     display: block;
+    font-size: 1.4rem;
+    padding: 4px 6px;
   }
 
   .qlist__content {
@@ -285,34 +287,27 @@
 
   .qlist__topbar {
     padding: 8px 12px;
-    gap: 6px;
-    flex-wrap: wrap;
-  }
-
-  .qlist__title {
-    font-size: 0.9rem;
-    flex: 1;
-    min-width: 0;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+    gap: 8px;
+    flex-wrap: nowrap;
+    align-items: center;
   }
 
   .qlist__pills {
-    width: 100%;
-    order: 3;
+    flex: 1;
     overflow-x: auto;
     padding-bottom: 2px;
     gap: 4px;
     scrollbar-width: none;
+    order: unset;
+    width: auto;
   }
   .qlist__pills::-webkit-scrollbar {
     display: none;
   }
 
   .qlist__pill {
-    padding: 3px 10px;
-    font-size: 0.7rem;
+    padding: 5px 13px;
+    font-size: 0.75rem;
     flex-shrink: 0;
   }
 
@@ -331,5 +326,12 @@
   .qlist__stat {
     padding: 5px 10px;
     font-size: 0.72rem;
+  }
+}
+
+/* Hide topbar title on desktop — intro card already shows it */
+@media (min-width: 769px) {
+  .qlist__title {
+    display: none;
   }
 }
