@@ -1,5 +1,6 @@
 {
   "name": "js-prep",
+  "homepage": "https://12MayankJha.github.io/js-prep",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -7,11 +8,17 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist"
   },
   "dependencies": {
+    "@reduxjs/toolkit": "^2.12.0",
+    "highlight.js": "^11.11.1",
     "react": "^19.2.6",
-    "react-dom": "^19.2.6"
+    "react-dom": "^19.2.6",
+    "react-redux": "^9.3.0",
+    "react-router-dom": "^7.15.1"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",

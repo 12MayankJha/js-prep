@@ -1,0 +1,232 @@
+.qlist {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+/* ── Topbar ── */
+.qlist__topbar {
+  position: sticky;
+  top: var(--topicbar-height);
+  z-index: 50;
+  background: rgba(11, 14, 23, 0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  padding: 10px 28px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.qlist__hamburger {
+  display: none;
+  background: none;
+  border: none;
+  color: var(--text);
+  font-size: 1.2rem;
+  cursor: pointer;
+  padding: 4px;
+}
+.qlist__title {
+  font-family: "Syne", sans-serif;
+  font-size: 1.05rem;
+  font-weight: 700;
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ── Level pills ── */
+.qlist__pills {
+  display: flex;
+  gap: 5px;
+  flex-shrink: 0;
+}
+.qlist__pill {
+  padding: 4px 11px;
+  border-radius: 20px;
+  font-size: 0.72rem;
+  font-weight: 500;
+  cursor: pointer;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--muted);
+  transition: all 0.15s;
+  font-family: "Inter", sans-serif;
+}
+.qlist__pill:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+.qlist__pill--all.qlist__pill--active {
+  background: var(--accent);
+  color: #000;
+  border-color: var(--accent);
+  font-weight: 600;
+}
+.qlist__pill--basic.qlist__pill--active {
+  background: var(--tag-basic);
+  color: #000;
+  border-color: var(--tag-basic);
+}
+.qlist__pill--intermediate.qlist__pill--active {
+  background: var(--tag-int);
+  color: #000;
+  border-color: var(--tag-int);
+}
+.qlist__pill--advanced.qlist__pill--active {
+  background: var(--tag-adv);
+  color: #000;
+  border-color: var(--tag-adv);
+}
+
+/* ── Content ── */
+.qlist__content {
+  padding: 28px;
+  flex: 1;
+}
+
+/* ── Intro ── */
+.qlist__intro {
+  margin-bottom: 20px;
+  padding: 22px 26px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  position: relative;
+  overflow: hidden;
+}
+.qlist__intro::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    var(--accent),
+    var(--accent3),
+    var(--accent2)
+  );
+}
+.qlist__intro h1 {
+  font-family: "Syne", sans-serif;
+  font-size: 1.4rem;
+  font-weight: 800;
+  margin-bottom: 5px;
+}
+.qlist__intro p {
+  color: var(--muted);
+  font-size: 0.85rem;
+  line-height: 1.65;
+  max-width: 560px;
+}
+
+/* ── Stats ── */
+.qlist__stats {
+  display: flex;
+  gap: 12px;
+  margin-top: 14px;
+  flex-wrap: wrap;
+}
+.qlist__stat {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 7px;
+  padding: 6px 13px;
+  font-size: 0.78rem;
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+}
+.qlist__stat-n {
+  font-family: "Syne", sans-serif;
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--accent);
+  line-height: 1;
+}
+.qlist__stat-l {
+  color: var(--muted);
+  line-height: 1;
+}
+.qlist__stat-n {
+  font-family: "Inter", sans-serif;
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--accent);
+  line-height: 1;
+}
+.qlist__stat-l {
+  color: var(--muted);
+}
+
+/* ── Banner ── */
+.qlist__banner {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 18px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  margin-bottom: 18px;
+  font-size: 0.85rem;
+  color: var(--accent);
+}
+.qlist__banner--error {
+  color: #ff6b9d;
+}
+.qlist__spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+  flex-shrink: 0;
+}
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ── Empty ── */
+.qlist__empty {
+  text-align: center;
+  padding: 60px 20px;
+  color: var(--muted);
+}
+.qlist__empty-icon {
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+.qlist__empty p {
+  font-size: 0.87rem;
+}
+
+/* ── Cards ── */
+.qlist__cards {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+/* ── Mobile ── */
+@media (max-width: 768px) {
+  .qlist__hamburger {
+    display: block;
+  }
+  .qlist__content {
+    padding: 14px;
+  }
+  .qlist__topbar {
+    padding: 8px 14px;
+  }
+  .qlist__pills {
+    overflow-x: auto;
+    padding-bottom: 2px;
+  }
+}

@@ -1,0 +1,45 @@
+:root {
+  --bg: #0b0e17;
+  --surface: #111520;
+  --card: #161b2e;
+  --border: #1e2740;
+  --text: #e2e8f0;
+  --muted: #64748b;
+  --code-bg: #0d1117;
+  --success: #22c55e;
+  --warning: #f59e0b;
+
+  /* JS theme */
+  --js-accent: #f7df1e;
+  --js-accent2: #f59e0b;
+  --js-accent3: #fbbf24;
+
+  /* React theme */
+  --re-accent: #61dafb;
+  --re-accent2: #a78bfa;
+  --re-accent3: #60a5fa;
+
+  /* Active theme — JS by default */
+  --accent: var(--js-accent);
+  --accent2: var(--js-accent2);
+  --accent3: var(--js-accent3);
+
+  /* Level badges */
+  --tag-basic-bg: #134e4a;
+  --tag-basic: #5eead4;
+  --tag-int-bg: #1e3a5f;
+  --tag-int: #60a5fa;
+  --tag-adv-bg: #3b1f5e;
+  --tag-adv: #c084fc;
+
+  /* Layout */
+  --sidebar-width: 272px;
+  --topicbar-height: 42px;
+}
+
+/* Swaps accent colours when React tab is active */
+body.react-mode {
+  --accent: var(--re-accent);
+  --accent2: var(--re-accent2);
+  --accent3: var(--re-accent3);
+}
