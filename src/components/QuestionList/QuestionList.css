@@ -26,15 +26,6 @@
   cursor: pointer;
   padding: 4px;
 }
-.qlist__title {
-  font-family: "Syne", sans-serif;
-  font-size: 1.05rem;
-  font-weight: 700;
-  flex: 1;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
 
 /* ── Level pills ── */
 .qlist__pills {
@@ -230,15 +221,6 @@
     flex-wrap: wrap;
   }
 
-  .qlist__title {
-    font-size: 0.9rem;
-    flex: 1;
-    min-width: 0;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
-
   .qlist__pills {
     width: 100%;
     order: 3;
@@ -326,12 +308,5 @@
   .qlist__stat {
     padding: 5px 10px;
     font-size: 0.72rem;
-  }
-}
-
-/* Hide topbar title on desktop — intro card already shows it */
-@media (min-width: 769px) {
-  .qlist__title {
-    display: none;
   }
 }
