@@ -26,3 +26,12 @@ body {
   background: var(--border);
   border-radius: 3px;
 }
+html,
+body {
+  overflow-x: hidden;
+  max-width: 100vw;
+}
+
+* {
+  min-width: 0;
+}

@@ -151,3 +151,28 @@
   font-size: 0.85rem;
   margin-top: 13px;
 }
+
+/* ── Mobile ── */
+@media (max-width: 768px) {
+  .ans {
+    font-size: 0.82rem;
+  }
+
+  .ans__code-block pre {
+    font-size: 0.72rem;
+    padding: 10px 12px;
+    overflow-x: auto;
+    /* prevent answer text from overflowing */
+    max-width: calc(100vw - 48px);
+  }
+
+  .ans table {
+    display: block;
+    overflow-x: auto;
+    max-width: calc(100vw - 48px);
+  }
+
+  .ans__img {
+    max-width: 100%;
+  }
+}

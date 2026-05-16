@@ -150,6 +150,29 @@
 
 @media (max-width: 768px) {
   .qcard__body {
-    padding-left: 16px;
+    padding: 0 12px 14px 12px;
+  }
+
+  .qcard__hdr {
+    padding: 11px 12px;
+    gap: 8px;
+  }
+
+  .qcard__num {
+    min-width: 24px;
+    font-size: 0.65rem;
+  }
+
+  .qcard__title {
+    font-size: 0.84rem;
+  }
+
+  .qcard__meta {
+    gap: 4px;
+  }
+
+  .qcard__badge {
+    font-size: 0.55rem;
+    padding: 2px 5px;
   }
 }
